@@ -1,13 +1,13 @@
 package com.christinagorina.preapprovedoffer.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "address")
 public class Address {
@@ -21,6 +21,8 @@ public class Address {
     public String name;
 
     @ManyToMany(mappedBy = "addresses")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Client> clients = new HashSet<>();
 
 }

@@ -1,12 +1,13 @@
 package com.christinagorina.preapprovedoffer.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "client")
 public class Client {
@@ -35,15 +36,16 @@ public class Client {
     public String phone;
 
     @OneToMany(mappedBy = "client")
+    @ToString.Exclude
     public List<Offer> offers;
 
-    @OneToOne(mappedBy = "client")
+    @OneToOne(mappedBy = "client", cascade = CascadeType.PERSIST)
     public ClientStatus clientStatus;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "client_address",
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
-    private List<Address> addresses;
+    private Set<Address> addresses;
 
 }

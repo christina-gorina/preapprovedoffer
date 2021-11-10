@@ -1,13 +1,16 @@
 package com.christinagorina.preapprovedoffer.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "offer")
 public class Offer {
@@ -32,7 +35,7 @@ public class Offer {
     @NonNull
     public BigDecimal amount;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id")
     public Client client;
 

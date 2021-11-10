@@ -1,10 +1,11 @@
 package com.christinagorina.preapprovedoffer.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "client_status")
 public class ClientStatus {
@@ -21,6 +22,8 @@ public class ClientStatus {
 
     @OneToOne
     @JoinColumn(name="client_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     public Client client;
 
 }

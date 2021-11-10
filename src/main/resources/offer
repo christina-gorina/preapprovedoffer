@@ -1,0 +1,25 @@
+{
+  "dateOfOffer": "2021-11-06T15:15:15.923",
+  "type": "mortgage",
+  "amount": "4000000",
+  "clientTo": {
+    "fio": "Самойлов Вадим Игоревич",
+    "passport": "1515116785",
+    "phone": "+79653485631",
+    "clientStatusTo": {
+      "level": "gold",
+      "regular": 1
+    },
+    "addressesTo": [
+      {
+        "code": "117564",
+        "country": "Россия",
+        "area": "г.Калуга",
+        "street": "ул.Кирова",
+        "home": "д.17",
+        "frame": "к.2",
+        "flat": "кв.5"
+      }
+    ]
+  }
+}
