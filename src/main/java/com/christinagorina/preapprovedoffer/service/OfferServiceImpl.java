@@ -26,6 +26,7 @@ public class OfferServiceImpl implements OfferService {
     private final OfferRepository offerRepository;
     private final ClientRepository clientRepository;
     private final AddressRepository addressRepository;
+    private final CheckService checkService;
 
     @Transactional
     @Override
@@ -55,6 +56,7 @@ public class OfferServiceImpl implements OfferService {
 
         Offer offerSaved = offerRepository.save(offer);
         log.info("offerSaved object {}", offerSaved);
+        checkService.check(offerSaved);
         return null;
     }
 }
