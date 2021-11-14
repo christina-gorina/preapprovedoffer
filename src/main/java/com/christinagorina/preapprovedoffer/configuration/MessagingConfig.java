@@ -15,7 +15,7 @@ import org.springframework.integration.scheduling.PollerMetadata;
 
 @Configuration
 @EnableIntegration
-public class PreapprovedOfferConfig {
+public class MessagingConfig {
 
     @Bean
     public QueueChannel checkChannel() {

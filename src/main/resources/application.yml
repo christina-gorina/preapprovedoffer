@@ -5,8 +5,17 @@ spring:
     username: postgres
     password: password
     initialization-mode: always
-
-
+  quartz:
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: ProjectQuartzScheduler
+            instanceId: ProjectQuartzSchedulerId
+          jobStore:
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            class: org.quartz.impl.jdbcjobstore.JobStoreCMT
   jpa:
     generate-ddl: false
     hibernate:
