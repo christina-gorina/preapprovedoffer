@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,4 +60,10 @@ public class OfferServiceImpl implements OfferService {
         checkService.check(offerSaved);
         return null;
     }
+
+    @Override
+    public List<Offer> getAll() {
+        return offerRepository.findAll();
+    }
+
 }

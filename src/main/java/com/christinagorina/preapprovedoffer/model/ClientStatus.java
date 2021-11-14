@@ -1,5 +1,6 @@
 package com.christinagorina.preapprovedoffer.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class ClientStatus {
     @JoinColumn(name="client_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     public Client client;
 
 }

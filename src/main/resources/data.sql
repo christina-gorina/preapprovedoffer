@@ -56,3 +56,8 @@ values (1016, '147661, Россия, г.Москва, ул.Белая, д.56, к
 values (1017, '118534, Россия, г.Москва, ул.Правды, д.89, к.4, кв.76');
 values (1018, '116566, Россия, г.Москва, ул.Озерная, д.48, к.1, кв.69');
 
+insert into users (id, name, password, email) values (1, 'admin', 'password', 'admin@gmail.com');
+insert into users (id, name, password, email) values (2, 'user', 'password', 'user@gmail.com');
+
+insert into user_roles (role, user_id) values ('USER', 2),('ADMIN', 1);
+

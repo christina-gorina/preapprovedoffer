@@ -1,5 +1,6 @@
 package com.christinagorina.preapprovedoffer.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Address {
     @ManyToMany(mappedBy = "addresses")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private Set<Client> clients = new HashSet<>();
 
 }

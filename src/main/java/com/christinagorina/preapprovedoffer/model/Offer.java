@@ -1,5 +1,6 @@
 package com.christinagorina.preapprovedoffer.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -37,6 +38,7 @@ public class Offer {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id")
+    @JsonManagedReference
     public Client client;
 
 }
