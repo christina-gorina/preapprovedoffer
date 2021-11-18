@@ -79,7 +79,8 @@ CREATE TABLE check_result
     phone_approve    BOOLEAN NULL,
     passport_approve BOOLEAN NULL,
     address_approve  BOOLEAN NULL,
-    report           BOOLEAN NULL
+    report           BOOLEAN NULL,
+    result           VARCHAR NULL
 );
 
 CREATE TABLE users

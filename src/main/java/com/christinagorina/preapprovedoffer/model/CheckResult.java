@@ -1,7 +1,9 @@
 package com.christinagorina.preapprovedoffer.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "check_result")
+@AllArgsConstructor
 public class CheckResult {
 
     @Id
@@ -24,5 +27,7 @@ public class CheckResult {
     public Boolean addressApprove;
 
     public Boolean report;
+
+    public String result;
 
 }
