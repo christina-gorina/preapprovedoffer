@@ -16,7 +16,8 @@ public class CheckResultRowMapper implements RowMapper<CheckResult> {
                 rs.getBoolean("phoneApprove"),
                 rs.getBoolean("passportApprove"),
                 rs.getBoolean("addressApprove"),
-                rs.getBoolean("report")
+                rs.getBoolean("report"),
+                rs.getString("result")
         );
     }
 

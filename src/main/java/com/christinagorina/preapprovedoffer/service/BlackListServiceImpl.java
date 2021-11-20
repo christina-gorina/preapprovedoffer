@@ -61,9 +61,8 @@ public class BlackListServiceImpl implements BlackListService {
         log.info("black list findAddresses {} ", checkMessage);
         boolean approve = false;
         CheckResult checkResult = getCheckResultWithOfferId(checkMessage.getOfferId());
-
         List<AddressBlackList> addressBlackList = addressBlackListRepository.getByNameIn(checkMessage.getAddresses());
-        if (Objects.isNull(addressBlackList)) {
+        if (addressBlackList.isEmpty()) {
             approve = true;
         }
         checkResult.setAddressApprove(approve);

@@ -2,7 +2,10 @@ package com.christinagorina.preapprovedoffer.utils;
 
 import com.christinagorina.preapprovedoffer.model.to.AddressTo;
 
+import java.time.LocalDateTime;
+
 public class Util {
+
     public static String createAddress(AddressTo addressTo) {
         return addressTo.getCode()
                 .concat(", ")
@@ -18,4 +21,11 @@ public class Util {
                 .concat(", ")
                 .concat(addressTo.getFlat());
     }
+
+    public static String fileNameDate() {
+        return  LocalDateTime.now().toString()
+                .replace(":", "-")
+                .replace(".", "-");
+    }
+
 }

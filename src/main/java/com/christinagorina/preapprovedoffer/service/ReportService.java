@@ -17,7 +17,7 @@ public class ReportService {
         String checkOfferResult = "";
         if (!checkResult.getPassportApprove()) {
             checkOfferResult = "refusal";
-        } else if (checkResult.getAddressApprove() && checkResult.getAddressApprove()) {
+        } else if (checkResult.getAddressApprove() && checkResult.getPhoneApprove()) {
             checkOfferResult = "success";
         } else {
             checkOfferResult = "manual";
@@ -25,6 +25,7 @@ public class ReportService {
 
         log.info("checkOfferResult = " + checkOfferResult);
 
+        checkResult.setResult(checkOfferResult);
         checkResult.setReport(true);
         checkResultRepository.save(checkResult);
 

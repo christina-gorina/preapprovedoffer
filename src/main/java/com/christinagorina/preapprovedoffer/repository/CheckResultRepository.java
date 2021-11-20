@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CheckResultRepository extends JpaRepository<CheckResult, Long> {
     CheckResult getByOfferId(Long id);
+
+    CheckResult getTopOneByReport(Boolean hasResult);
 }

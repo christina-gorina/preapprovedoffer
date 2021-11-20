@@ -3,6 +3,7 @@ package com.christinagorina.preapprovedoffer.configuration;
 import com.christinagorina.preapprovedoffer.mapper.CheckResultRowMapper;
 import com.christinagorina.preapprovedoffer.model.CheckResult;
 import com.christinagorina.preapprovedoffer.service.ReportService;
+import com.christinagorina.preapprovedoffer.utils.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -19,6 +20,7 @@ import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuild
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.transform.PassThroughLineAggregator;
+import org.springframework.batch.item.support.ClassifierCompositeItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
@@ -30,10 +32,12 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class BatchConfig {
 
-    private static final int CHUNK_SIZE = 2;
+    private static final int CHUNK_SIZE = 5;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final DataSource dataSource;
+    private final String OUTPUTFILEAUTO = "src\\main\\resources\\output\\outputAuto_";
+    private final String OUTPUTFILEMANUAL = "src\\main\\resources\\output\\outputManual_";
 
     @Bean
     public JobRegistryBeanPostProcessor postProcessor(JobRegistry jobRegistry) {
@@ -52,7 +56,8 @@ public class BatchConfig {
                     "ch.phone_approve as phoneApprove, " +
                     "ch.passport_approve as passportApprove, " +
                     "ch.address_approve as addressApprove, " +
-                    "ch.report as report " +
+                    "ch.report as report, " +
+                    "ch.result as result " +
                     "from check_result as ch " +
                     "where report = false")
             .name("checkResultJdbcCursorItemReader")
@@ -69,22 +74,49 @@ public class BatchConfig {
 
     @StepScope
     @Bean
-    public FlatFileItemWriter itemWriter() {
+    public FlatFileItemWriter<CheckResult> itemWriterHand() {
+        return createWriter(OUTPUTFILEMANUAL + Util.fileNameDate() + ".txt", "hand");
+    }
+
+    @StepScope
+    @Bean
+    public FlatFileItemWriter<CheckResult> itemWriterAuto() {
+        return createWriter(OUTPUTFILEAUTO + Util.fileNameDate() + ".txt","auto");
+    }
+
+    public FlatFileItemWriter<CheckResult> createWriter(String output, String writerName) {
         return new FlatFileItemWriterBuilder<CheckResult>()
-            .name("itemWriter")
-            .resource(new FileSystemResource("src\\main\\resources\\output\\output.txt"))
+            .name(writerName)
+            .resource(new FileSystemResource(output))
             .lineAggregator(new PassThroughLineAggregator<>())
             .build();
     }
 
     @Bean
-    public Step checkResultStep(JdbcCursorItemReader<CheckResult> checkResultReader, FlatFileItemWriter<CheckResult> itemWriter,
-                         ItemProcessor<CheckResult, CheckResult> checkResultProcessor) {
+    public ClassifierCompositeItemWriter<CheckResult> classifierCompositeItemWriter(
+            FlatFileItemWriter<CheckResult> itemWriterHand,
+            FlatFileItemWriter<CheckResult> itemWriterAuto
+    ) {
+        ClassifierCompositeItemWriter<CheckResult> compositeItemWriter = new ClassifierCompositeItemWriter<>();
+        compositeItemWriter.setClassifier(new BatchClassifier(itemWriterHand, itemWriterAuto));
+        return compositeItemWriter;
+    }
+
+    @Bean
+    public Step checkResultStep(
+        JdbcCursorItemReader<CheckResult> checkResultReader,
+        FlatFileItemWriter<CheckResult> itemWriterHand,
+        FlatFileItemWriter<CheckResult> itemWriterAuto,
+        ClassifierCompositeItemWriter<CheckResult> classifierCompositeItemWriter,
+        ItemProcessor<CheckResult, CheckResult> checkResultProcessor
+    ) {
         return stepBuilderFactory.get("bookStep")
             .<CheckResult, CheckResult>chunk(CHUNK_SIZE)
             .reader(checkResultReader)
             .processor(checkResultProcessor)
-            .writer(itemWriter)
+            .writer(classifierCompositeItemWriter)
+            .stream(itemWriterHand)
+            .stream(itemWriterAuto)
             .build();
     }
 
