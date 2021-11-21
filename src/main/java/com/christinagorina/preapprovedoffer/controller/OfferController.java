@@ -16,7 +16,7 @@ public class OfferController {
     private final OfferService offerService;
 
     @PostMapping("/api/offers")
-    public OfferTo create(@RequestBody OfferTo offerTo) {
+    public Offer create(@RequestBody OfferTo offerTo) {
         return offerService.create(offerTo);
     }
 

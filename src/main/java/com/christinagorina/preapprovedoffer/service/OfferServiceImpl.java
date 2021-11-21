@@ -31,7 +31,7 @@ public class OfferServiceImpl implements OfferService {
 
     @Transactional
     @Override
-    public OfferTo create(OfferTo offerTo) {
+    public Offer create(OfferTo offerTo) {
         Offer offer = offerMapper.map(offerTo);
         log.info("Mapped offer object {}", offer);
 
@@ -58,7 +58,7 @@ public class OfferServiceImpl implements OfferService {
         Offer offerSaved = offerRepository.save(offer);
         log.info("offerSaved object {}", offerSaved);
         checkService.check(offerSaved);
-        return null;
+        return offerSaved;
     }
 
     @Transactional(readOnly = true)
@@ -67,16 +67,16 @@ public class OfferServiceImpl implements OfferService {
         return offerRepository.findAll();
     }
 
-    @Transactional
-    @Override
-    public void deleteById(Long id) {
-        offerRepository.deleteById(id);
-    }
-
     @Transactional(readOnly = true)
     @Override
     public Offer getById(Long id) {
         return offerRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        offerRepository.deleteById(id);
     }
 
 }
