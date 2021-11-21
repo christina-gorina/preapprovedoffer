@@ -26,11 +26,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/offers").hasRole("ADMIN")
-                .and()
-                .formLogin()
-                .successForwardUrl("/success");
+            .httpBasic()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/api/offers")
+            .hasRole("ADMIN")
+            .and()
+            .formLogin();
     }
 
     @SuppressWarnings("deprecation")
