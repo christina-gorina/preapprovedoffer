@@ -4,6 +4,7 @@ import com.christinagorina.preapprovedoffer.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -29,10 +30,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .httpBasic()
             .and()
             .authorizeRequests()
-            .antMatchers("/api/offers")
-            .hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/api/offers").hasRole("ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/api/offers/**").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/api/offers/**").hasAnyRole("ADMIN", "USER")
+            .antMatchers(HttpMethod.GET, "/api/offers").hasAnyRole("ADMIN", "USER")
+            .antMatchers("/api/**").authenticated()
             .and()
-            .formLogin();
+            .formLogin()
+            .successForwardUrl("/success");
+
     }
 
     @SuppressWarnings("deprecation")

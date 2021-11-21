@@ -5,10 +5,7 @@ import com.christinagorina.preapprovedoffer.model.to.OfferTo;
 import com.christinagorina.preapprovedoffer.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,20 +15,30 @@ import java.util.List;
 public class OfferController {
     private final OfferService offerService;
 
-    @PostMapping("/api/offer")
+    @PostMapping("/api/offers")
     public OfferTo create(@RequestBody OfferTo offerTo) {
-        log.info("Input offerTo is {}", offerTo);
         return offerService.create(offerTo);
     }
 
     @GetMapping("/api/offers")
     public List<Offer> getAll() {
-        log.info("Get all offers");
         return offerService.getAll();
+    }
+
+    @GetMapping("/api/offers/{id}")
+    public Offer getById(@PathVariable("id") Long id) {
+        return offerService.getById(id);
+    }
+
+    @DeleteMapping("/api/offers/{id}")
+    public String deleteById(@PathVariable("id") Long id) {
+        offerService.deleteById(id);
+        return "success";
     }
 
     @PostMapping("/success")
     public String successPage() {
         return "success";
     }
+
 }

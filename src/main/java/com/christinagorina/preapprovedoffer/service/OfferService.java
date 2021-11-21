@@ -9,4 +9,8 @@ public interface OfferService {
     OfferTo create(OfferTo offerTo);
 
     List<Offer> getAll();
+
+    void deleteById(Long id);
+
+    Offer getById(Long id);
 }

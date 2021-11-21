@@ -1,6 +1,7 @@
 package com.christinagorina.preapprovedoffer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
@@ -56,6 +57,7 @@ public class Client {
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id"))
     @JsonManagedReference
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Set<Address> addresses;
 
 }

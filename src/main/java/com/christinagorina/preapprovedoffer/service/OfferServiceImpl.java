@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -61,9 +61,22 @@ public class OfferServiceImpl implements OfferService {
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Offer> getAll() {
         return offerRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        offerRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Offer getById(Long id) {
+        return offerRepository.findById(id).orElse(null);
     }
 
 }
