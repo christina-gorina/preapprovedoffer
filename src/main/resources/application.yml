@@ -1,0 +1,40 @@
+spring:
+  batch:
+    job:
+      enabled: false
+    initialize-schema: always
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    initialization-mode: always
+  quartz:
+    jdbc:
+      initialize-schema: always
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: ProjectQuartzScheduler
+            instanceId: ProjectQuartzSchedulerId
+          jobStore:
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            class: org.quartz.impl.jdbcjobstore.JobStoreCMT
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, activity-stat
+  endpoint:
+    health:
+      show-details: always
+

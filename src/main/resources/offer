@@ -1,0 +1,120 @@
+POST http://localhost:8080/api/offers
+Content-Type: application/json
+Authorization: Basic admin password
+
+##  success
+{
+  "dateOfOffer": "2021-11-06T15:15:15.923",
+  "type": "mortgage",
+  "amount": "4000000",
+  "clientTo": {
+    "fio": "Самойлов Вадим Игоревич",
+    "passport": "1515616785",
+    "phone": "+79653485631",
+    "clientStatusTo": {
+      "level": "gold",
+      "regular": 1
+    },
+    "addressesTo": [
+      {
+        "code": "117564",
+        "country": "Россия",
+        "area": "г.Калуга",
+        "street": "ул.Кирова",
+        "home": "д.17",
+        "frame": "к.2",
+        "flat": "кв.5"
+      }
+    ]
+  }
+}
+
+###
+
+POST http://localhost:8080/api/offers
+Content-Type: application/json
+Authorization: Basic admin password
+
+## refusal
+{
+  "dateOfOffer": "2021-11-06T15:15:15.923",
+  "type": "mortgage",
+  "amount": "4000000",
+  "clientTo": {
+    "fio": "Крашин Петр Петрович",
+    "passport": "1866858709",
+    "phone": "+79673435629",
+    "clientStatusTo": {
+      "level": "none",
+      "regular": 0
+    },
+    "addressesTo": [
+      {
+        "code": "117564",
+        "country": "Россия",
+        "area": "г.Казань",
+        "street": "ул.Свободы",
+        "home": "д.6",
+        "frame": "к.1",
+        "flat": "кв.567"
+      }
+    ]
+  }
+}
+
+###
+
+POST http://localhost:8080/api/offers
+Content-Type: application/json
+Authorization: Basic admin password
+
+## manual
+{
+  "dateOfOffer": "2021-11-06T15:15:15.923",
+  "type": "mortgage",
+  "amount": "4000000",
+  "clientTo": {
+    "fio": "Милова Ирина Викторовна",
+    "passport": "1286852709",
+    "phone": "+79141396730",
+    "clientStatusTo": {
+      "level": "silver",
+      "regular": 1
+    },
+    "addressesTo": [
+      {
+        "code": "117764",
+        "country": "Россия",
+        "area": "г.Астрахань",
+        "street": "ул.Мира",
+        "home": "д.8",
+        "frame": "к.3",
+        "flat": "кв.856"
+      }
+    ]
+  }
+}
+
+###
+
+GET http://localhost:8080/api/offers
+Authorization: Basic user password
+Content-Type: application/json
+
+######
+
+GET http://localhost:8080/api/offers/1001
+Authorization: Basic user password
+Content-Type: application/json
+
+######
+
+DELETE http://localhost:8080/api/offers/1001
+Authorization: Basic admin password
+Content-Type: application/json
+
+######
+
+
+
+
