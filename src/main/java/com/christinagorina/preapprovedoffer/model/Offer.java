@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -35,6 +36,10 @@ public class Offer {
     @Column(name = "amount")
     @NonNull
     public BigDecimal amount;
+
+    @Column(name = "testvar")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    public Boolean testvar;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id")

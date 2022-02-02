@@ -13,5 +13,7 @@ public class OfferTo {
 
     public String amount;
 
+    public Integer testvar;
+
     public ClientTo clientTo;
 }

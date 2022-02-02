@@ -29,6 +29,7 @@ CREATE TABLE offer
     date_of_check TIMESTAMP,
     type          VARCHAR NOT NULL,
     amount        DECIMAL NOT NULL,
+    testvar   INTEGER ,
     FOREIGN KEY (client_id) REFERENCES client (id) ON DELETE CASCADE
 );
 

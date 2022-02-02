@@ -15,6 +15,7 @@ public abstract class OfferMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "dateOfCheck", expression = "java(LocalDateTime.now())")
     @Mapping(target = "client", source = "clientTo")
+    @Mapping(target = "testvar", source = "testvar")
     public abstract Offer map(OfferTo offerTo);
 
 }
